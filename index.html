@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-950">
+    <div class="min-h-screen container mx-auto grid place-items-center">
+        <div class="flex flex-col justify-center items-center">
+            <h1 class="text-3xl font-bold text-white">Hellow</h1>
+            <p class="text-red-500 text-xl" id="js-count-number">0</p>
+            <button class="bg-blue-500 px-4 py-3 text-white font-semibold rounded hover:bg-blue-600"
+                id="js-counting-btn">Count</button>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            loadCount()
+            document.getElementById("js-counting-btn").addEventListener("click", count)
+        })
+
+        function loadCount() {
+            fetch("/count")
+                .then((res) => res.json())
+                .then(data => {
+                    document.getElementById("js-count-number").innerHTML = data.count
+                })
+        }
+
+        function count() {
+            fetch("/count", {
+                "method": "POST"
+            })
+                .then((res) => res.json())
+                .then(data => {
+                    document.getElementById("js-count-number").innerHTML = data.count
+                })
+        }
+    </script>
+</body>
+
+</html>
